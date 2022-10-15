@@ -4,10 +4,21 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="medicamento")
 public class Medicamento implements Serializable, Base {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	@Column(name="codigo")
 	private Long id;
 	private String nome;
 	private String apresentacao;
