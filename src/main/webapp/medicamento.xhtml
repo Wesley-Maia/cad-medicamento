@@ -12,53 +12,93 @@
 </h:head>
 
 <h:body>
-	<header> Header </header>
-	<h1>Campos de Entrada de Texto</h1>
+	<style>
+       	/* reset on the showcase style*/
+       	body .ui-panelgrid .ui-panelgrid-cell {
+           	background-color: transparent;
+       	}
 
+       	/* example use of styles for your form */
+       	.my-heading-row {
+           	background-color: var(--surface-c);
+           	font-weight: bold;
+       	}
+    </style>
+    	
+	<header> Header </header>
+	
+	<div style="background-color:#457b9d; width:100%; border-radius:5px">
+        <h1>Dados do Medicamento</h1>
+    </div>
+	
 	<h:form id="frm">
 		<p:messages autoUpdate="true" />
-
-		<p:panelGrid columns="2">
-			<p:outputLabel value="Medicamento" />
-			<p:inputText size="30" value="#{medicamentoMB.medicamento.nome}" required="true" label="Medicamento" />
-			
-			<p:outputLabel value="Apresentação"/>
-			<p:inputText size="30" value="#{medicamentoMB.medicamento.apresentacao}" required="true" label="Apresentação"/>
-			
-			<p:outputLabel value="Laboratório"/>
-			<p:selectOneMenu value="#{medicamentoMB.medicamento.laboratorio}" required="true" label="Laboratório">
-				<f:selectItem itemLabel="Selecione o laboratório" noSelectionOption="true"/>
-				<f:selectItem itemLabel="Bayer" itemValue="BAYER"/>
-				<f:selectItem itemLabel="Cimed" itemValue="CIMED"/>
-				<f:selectItem itemLabel="Teuto" itemValue="TEUTO"/>
-			</p:selectOneMenu>
-			
-			<p:outputLabel value="Registro MS"/>
-			<p:inputMask mask="9.9999.9999.999-9" size="13" value="#{medicamentoMB.medicamento.registro}" required="true" label="Registro MS"/>
-			
-			<p:outputLabel value="Preço"/>
-			<p:inputText size="4" value="#{medicamentoMB.medicamento.preco}" required="true" label="Preço">
-				<f:convertNumber minFractionDigits="2" locale="pt_BR" minIntegerDigits="0" />
-			</p:inputText>
-			
-			<p:outputLabel/>
-			<p:commandButton value="Cadastrar" action="#{medicamentoMB.adicionar}" update="frm tabela" style="margin-top: 10px"/>
-		</p:panelGrid>
 		
-		<p:dataTable value="#{medicamentoMB.medicamentos}" var="m" id="tabela" paginator="true" rows="5">
+		<div style="background-color:#8ecae6; width:100%; border-radius:5px">
+			<div class="card">    	
+    			<!--
+    			Note: Rows and columns can have style, styleClass, and id.
+    			Note: A column with a defined styleClass will ignore the styleClass specified in the columnClasses list.
+    			Note: Note the use of ui-fluid to ensure that components are sized correctly and the use of ui-panelgrid-blank to remove borders.
+    			-->
+    	
+    			<p:panelGrid columns="4"
+                	columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-5"
+                 	layout="grid"
+                 	styleClass="ui-panelgrid-blank ui-fluid"
+                 	style="border:0px none; background-color:transparent;">
+       	
+        			<p:outputLabel for="@next" value="Medicamento"/>
+        			<p:inputText value="#{medicamentoMB.medicamento.nome}" required="true" label="Medicamento"/>
+
+        			<p:outputLabel for="@next" value="Apresentação"/>
+        			<p:inputText value="#{medicamentoMB.medicamento.apresentacao}" required="true" label="Apresentação"/>	
+				</p:panelGrid>			
+		
+				<p:panelGrid columns="6"
+                	columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2"
+                	layout="grid"
+                 	styleClass="ui-panelgrid-blank ui-fluid"
+                 	style="border:0px none; background-color:transparent;">
+                 
+        			<p:outputLabel for="@next" value="Laboratório"/>
+        			<p:selectOneMenu value="#{medicamentoMB.medicamento.laboratorio}" required="true" label="Laboratório">
+						<f:selectItem itemLabel="Selecione o laboratório" noSelectionOption="true"/>
+						<f:selectItem itemLabel="Bayer" itemValue="BAYER"/>
+						<f:selectItem itemLabel="Cimed" itemValue="CIMED"/>
+						<f:selectItem itemLabel="Teuto" itemValue="TEUTO"/>
+					</p:selectOneMenu>
+			
+					<p:outputLabel value="Registro MS"/>
+					<p:inputMask mask="9.9999.9999.999-9" size="13" value="#{medicamentoMB.medicamento.registro}" required="true" label="Registro MS"/>
+			
+					<p:outputLabel value="Preço"/>
+					<p:inputText size="4" value="#{medicamentoMB.medicamento.preco}" required="true" label="Preço">
+						<f:convertNumber minFractionDigits="2" locale="pt_BR" minIntegerDigits="0" />
+					</p:inputText>
+			
+					<p:commandButton value="Cadastrar" action="#{medicamentoMB.adicionar}" update="frm tabela" style="margin-top: 10px"/>
+        		</p:panelGrid>
+        
+        		<div style="margin-top:10px">
+        		</div>
+			</div>
+        </div>
+        
+        <p:dataTable value="#{medicamentoMB.medicamentos}" var="m" id="tabela" paginator="true" rows="5">
 			<p:column headerText="Medicamento">
 				<p:outputLabel value="#{m.nome}"/>
 			</p:column>
-			
+		
 			<p:column headerText="Apresentação" width="200">
 				<p:outputLabel value="#{m.apresentacao}"/>
 			</p:column>
-			
+		
 			<p:column headerText="Laboratório" width="200">
 				<p:outputLabel value="#{m.laboratorio}"/>
 			</p:column>
-			
-			v<p:column headerText="Registro MS" width="250">
+		
+			<p:column headerText="Registro MS" width="250">
 				<p:outputLabel value="#{m.registro}"/>
 			</p:column>
 			
@@ -72,7 +112,7 @@
 				<p:commandButton icon="ui-icon-pencil" update="@form" process="@this">
 					<f:setPropertyActionListener value="#{m}" target="#{medicamentoMB.medicamento}" />
 				</p:commandButton>
-				
+			
 				<p:commandButton action="#{medicamentoMB.excluir}" icon="ui-icon-trash" update="tabela" process="@this">
 					<f:setPropertyActionListener value="#{m}" target="#{medicamentoMB.medicamento}" />
 				</p:commandButton>
