@@ -49,10 +49,10 @@
                  	style="border:0px none; background-color:transparent;">
        	
         			<p:outputLabel for="@next" value="Medicamento"/>
-        			<p:inputText value="#{medicamentoMB.medicamento.nome}" required="true" label="Medicamento"/>
+        			<p:inputText value="#{medicamentoMB.nome}" required="true" label="Medicamento"/>
 
         			<p:outputLabel for="@next" value="Apresentação"/>
-        			<p:inputText value="#{medicamentoMB.medicamento.apresentacao}" required="true" label="Apresentação"/>	
+        			<p:inputText value="#{medicamentoMB.apresentacao}" required="true" label="Apresentação"/>	
 				</p:panelGrid>			
 		
 				<p:panelGrid columns="6"
@@ -62,7 +62,7 @@
                  	style="border:0px none; background-color:transparent;">
                  
         			<p:outputLabel for="@next" value="Laboratório"/>
-        			<p:selectOneMenu value="#{medicamentoMB.medicamento.laboratorio}" required="true" label="Laboratório">
+        			<p:selectOneMenu value="#{medicamentoMB.laboratorio}" required="true" label="Laboratório">
 						<f:selectItem itemLabel="Selecione o laboratório" noSelectionOption="true"/>
 						<f:selectItem itemLabel="Bayer" itemValue="BAYER"/>
 						<f:selectItem itemLabel="Cimed" itemValue="CIMED"/>
@@ -70,13 +70,14 @@
 					</p:selectOneMenu>
 			
 					<p:outputLabel value="Registro MS"/>
-					<p:inputMask mask="9.9999.9999.999-9" size="13" value="#{medicamentoMB.medicamento.registro}" required="true" label="Registro MS"/>
+					<p:inputMask mask="9.9999.9999.999-9" size="13" value="#{medicamentoMB.registro}" required="true" label="Registro MS"/>
 			
 					<p:outputLabel value="Preço"/>
-					<p:inputText size="4" value="#{medicamentoMB.medicamento.preco}" required="true" label="Preço">
+					<p:inputText size="4" value="#{medicamentoMB.preco}" required="true" label="Preço">
 						<f:convertNumber minFractionDigits="2" locale="pt_BR" minIntegerDigits="0" />
 					</p:inputText>
 			
+					<p:commandButton value="Novo" action="#{medicamentoMB.novo}" update="frm" style="margin-top: 10px"/>
 					<p:commandButton value="Cadastrar" action="#{medicamentoMB.adicionar}" update="frm tabela" style="margin-top: 10px"/>
         		</p:panelGrid>
         
@@ -109,7 +110,7 @@
 			</p:column>
 			
 			<p:column headerText="Editar/Excluir" width="120">
-				<p:commandButton icon="ui-icon-pencil" update="@form" process="@this">
+				<p:commandButton action="#{medicamentoMB.editar}" icon="ui-icon-pencil" update="@form" process="@this">
 					<f:setPropertyActionListener value="#{m}" target="#{medicamentoMB.medicamento}" />
 				</p:commandButton>
 			
